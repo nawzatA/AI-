@@ -1,16 +1,4 @@
-# AI-
-// איפוס כל השדות
-                document.getElementById('essayType').value = '';
-                document.getElementById('topic').value = '';
-                document.getElementById('mainIdea').value = '';
-                document.getElementById('arguments').value = '';
-                document.getElementById('counterArgument').value = '';
-                document.getElementById('refutation').value = '';
-                document.getElementById('introduction').value = '';
-                document.getElementById('body1').value = '';
-                document.getElementById('body2').value = '';
-                document.getElementById('body3').value = '';
-                if (document.getElementById('<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -326,11 +314,13 @@
                     </div>
 
                     <div class="input-group" id="counterArgumentGroup" style="display: none;">
-                        <label for="counterArgument">טענת הנגד:</label>
-                        <textarea id="counterArgument" placeholder="מה יכולים להשיב מתנגדי העמדה שלך?"></textarea>
-                        
-                        <label for="refutation" style="margin-top: 15px;">ההפרכה שלך לטענת הנגד:</label>
-                        <textarea id="refutation" placeholder="איך תפריך את טענת הנגד? מה הבעיות בטיעון שלהם?"></textarea>
+                        <label for="counterArgument">טענת נגד שעלולה להיות מועלית:</label>
+                        <textarea id="counterArgument" placeholder="למשל: יש הטוענים כי..."></textarea>
+                    </div>
+
+                    <div class="input-group" id="counterArgumentRefutationGroup" style="display: none;">
+                        <label for="counterArgumentRefutation">ההפרכה שלך לטענת הנגד:</label>
+                        <textarea id="counterArgumentRefutation" placeholder="אולם טענה זו שגויה מכיוון ש..."></textarea>
                     </div>
 
                     <button class="btn-primary" onclick="generateOutline()">צור מתווה לחיבור <span class="emoji">🚀</span></button>
@@ -380,12 +370,6 @@
                         <label for="body3">פסקת גוף שלישית:</label>
                         <textarea id="body3" class="textarea-large" 
                                 placeholder="הצג את הטיעון השלישי..."></textarea>
-                    </div>
-
-                    <div class="input-group" id="counterSection" style="display: none;">
-                        <label for="counterParagraph">פסקת טענת הנגד וההפרכה:</label>
-                        <textarea id="counterParagraph" class="textarea-large" 
-                                placeholder="הצג את טענת הנגד והפריך אותה...&#10;'אמנם יש הטוענים ש... אולם...'"></textarea>
                     </div>
 
                     <div class="input-group">
@@ -520,13 +504,13 @@
                     sections: [
                         {
                             title: 'מבנה חזק',
-                            content: '• פתח בהצגת הנושא והעמדה שלך בבירור<br>• כל פסקה = טיעון אחד + הוכחות<br>• כלול התייחסות לעמדה נגדית + הפרכה<br>• סיים בסיכום חזק',
-                            example: '"אף על פי שיש הטוענים כי... אולם הם טועים משום ש..."'
+                            content: '• הצג עמדה ברורה בהקדמה<br>• כל פסקה = טיעון אחד + הוכחות<br>• התייחס לעמדה נגדית והפרך אותה<br>• סיים בחיזוק העמדה',
+                            example: 'דוגמה: "אף על פי שיש הטוענים כי... אולם טענה זו שגויה מכיוון ש..."'
                         },
                         {
-                            title: 'כלים יעילים',
-                            content: '• דוגמאות קונקרטיות ומקורות אמינים<br>• מילות קישור: "יתרה מכך", "מצד שני", "לעומת זאת"<br>• בנייה מהטיעון החלש לחזק',
-                            example: 'מילות קישור: "ראשית", "שנית", "לבסוף", "אמנם... אולם"'
+                            title: 'טיפים מעשיים',
+                            content: '• השתמש בדוגמאות קונקרטיות ומקורות<br>• מילות קישור: "יתרה מכך", "מצד שני", "לכן"<br>• סדר הטיעונים: מחלש לחזק',
+                            example: 'מילות קישור: "ראשית", "שנית", "אמנם... אולם", "לבסוף"'
                         }
                     ]
                 },
@@ -535,13 +519,13 @@
                     sections: [
                         {
                             title: 'יצירת אטמוספרה',
-                            content: '• השתמש בכל החושים - לא רק ראייה<br>• בנה מהכללי לפרטי או להיפך<br>• צור רגש אצל הקורא',
-                            example: '"הריח החמצמץ של הגשם התערבב עם ניחוח הפרחים..."'
+                            content: '• השתמש בכל החושים (לא רק ראייה)<br>• בנה מכללי לפרטי או הפוך<br>• צור חוויה חושית לקורא',
+                            example: 'דוגמה: "הריח החמצמץ של הגשם התערבב עם ניחוח הפרחים..."'
                         },
                         {
-                            title: 'כלים יעילים',
-                            content: '• שפה חושית ועשירה<br>• השוואות ומטפורות חיות<br>• פרטים שיוצרים תמונה ברורה',
-                            example: '"הרוח לחשה סודות", "השמש ציירה צללים רוקדים"'
+                            title: 'כלים ספרותיים',
+                            content: '• השתמש במטפורות והשוואות<br>• תאר פרטים שיוצרים רגש<br>• שפה עשירה וחושית',
+                            example: 'מטפורות: "הרוח לחשה סודות", "השמש ציירה צללים רוקדים"'
                         }
                     ]
                 },
@@ -549,14 +533,14 @@
                     title: '📋 טיפים למכתב רשמי:',
                     sections: [
                         {
-                            title: 'מבנה נוקשה',
-                            content: '• כתובת שולח + תאריך + כתובת נמען<br>• נושא ברור + פנייה מנומסת<br>• גוף מסודר + סיום מכובד',
-                            example: '"הנדון: בקשה ל...&#10;אני פונה אליכם בעניין..."'
+                            title: 'מבנה נדרש',
+                            content: '• כתובת שולח + תאריך<br>• כתובת נמען + נושא<br>• פנייה מנומסת + גוף + סיום',
+                            example: 'פתיחה: "הנדון: בקשה לדחיית מועד<br>אני פונה אליכם בעניין..."'
                         },
                         {
-                            title: 'שפה מתאימה',
-                            content: '• שפה מכובדת ותמציתית<br>• המטרה ברורה בפסקה הראשונה<br>• ביטויים מקובלים',
-                            example: '"אודה לקבל מענה", "בכבוד רב", "הנני פונה אליכם"'
+                            title: 'שפה וסגנון',
+                            content: '• שפה מכובדת ותמציתית<br>• הבהר מטרה בפסקה ראשונה<br>• השתמש בביטויים מקובלים',
+                            example: 'ביטויים: "אני פונה אליכם", "אודה לקבל מענה", "בכבוד רב"'
                         }
                     ]
                 },
@@ -565,13 +549,13 @@
                     sections: [
                         {
                             title: 'טון אישי וחם',
-                            content: '• שפה טבעית ורגועה<br>• התחל בשאלה על מצבו<br>• שתף חוויות אישיות ורגשות',
-                            example: '"איך אתה? מזמן לא שמעתי! אתמול קרה לי משהו מצחיק..."'
+                            content: '• שפה טבעית ורגועה<br>• התחל בשאלה על מצבו<br>• התייחס לאירועים משותפים',
+                            example: 'פתיחה: "איך אתה? מזמן לא שמעתי! אתמול קרה לי משהו מצחיק..."'
                         },
                         {
-                            title: 'יצירת קשר',
-                            content: '• השתמש בהומור מתאים<br>• הזכר זיכרונות משותפים<br>• סיים בביטוי חיבה או תוכניות',
-                            example: '"מתגעגע אליך", "מחכה לפגישה הבאה שלנו"'
+                            title: 'תוכן מעניין',
+                            content: '• שתף חוויות אישיות ורגשות<br>• השתמש בהומור מתאים<br>• סיים בחיבה או תוכניות',
+                            example: 'סיומים: "מתגעגע אליך", "מחכה לפגישה הבאה", "כתוב בחזרה!"'
                         }
                     ]
                 }
@@ -580,27 +564,33 @@
             // עדכון לייבל לפי סוג החיבור
             const argumentsLabel = document.querySelector('label[for="arguments"]');
             const counterArgumentGroup = document.getElementById('counterArgumentGroup');
-            const counterSection = document.getElementById('counterSection');
+            const counterArgumentRefutationGroup = document.getElementById('counterArgumentRefutationGroup');
+            const counterArgWritingGroup = document.getElementById('counterArgWritingGroup');
             
             if (essayType === 'argumentative') {
                 argumentsLabel.textContent = 'רשום 3 טיעונים עיקריים:';
                 argumentsGroup.style.display = 'block';
                 counterArgumentGroup.style.display = 'block';
-                // הצגת שדה טענת הנגד גם בשלב הכתיבה
-                if (counterSection) counterSection.style.display = 'block';
-            } else {
+                counterArgumentRefutationGroup.style.display = 'block';
+                counterArgWritingGroup.style.display = 'block';
+            } else if (essayType === 'formal_letter' || essayType === 'friendly_letter') {
+                argumentsLabel.textContent = 'רשום 3 נקודות עיקריות שברצונך להעביר:';
+                argumentsGroup.style.display = 'block';
                 counterArgumentGroup.style.display = 'none';
-                if (counterSection) counterSection.style.display = 'none';
-                
-                if (essayType === 'formal_letter' || essayType === 'friendly_letter') {
-                    argumentsLabel.textContent = 'רשום 3 נקודות עיקריות שברצונך להעביר:';
-                    argumentsGroup.style.display = 'block';
-                } else if (essayType === 'descriptive') {
-                    argumentsLabel.textContent = 'רשום 3 היבטים שברצונך לתאר:';
-                    argumentsGroup.style.display = 'block';
-                } else {
-                    argumentsGroup.style.display = 'block';
-                }
+                counterArgumentRefutationGroup.style.display = 'none';
+                counterArgWritingGroup.style.display = 'none';
+            } else if (essayType === 'descriptive') {
+                argumentsLabel.textContent = 'רשום 3 היבטים שברצונך לתאר:';
+                argumentsGroup.style.display = 'block';
+                counterArgumentGroup.style.display = 'none';
+                counterArgumentRefutationGroup.style.display = 'none';
+                counterArgWritingGroup.style.display = 'none';
+            } else {
+                argumentsLabel.textContent = 'רשום 3 טיעונים עיקריים:';
+                argumentsGroup.style.display = 'block';
+                counterArgumentGroup.style.display = 'none';
+                counterArgumentRefutationGroup.style.display = 'none';
+                counterArgWritingGroup.style.display = 'none';
             }
 
             if (tips[essayType]) {
@@ -627,10 +617,16 @@
             const mainIdea = document.getElementById('mainIdea').value;
             const arguments = document.getElementById('arguments').value;
             const essayType = document.getElementById('essayType').value;
-            const counterArgument = document.getElementById('counterArgument') ? document.getElementById('counterArgument').value : '';
+            const counterArgument = document.getElementById('counterArgument').value;
+            const counterArgumentRefutation = document.getElementById('counterArgumentRefutation').value;
 
             if (!topic || !mainIdea || !arguments || !essayType) {
                 alert('אנא מלא את כל השדות כדי לקבל מתווה מותאם!');
+                return;
+            }
+
+            if (essayType === 'argumentative' && (!counterArgument || !counterArgumentRefutation)) {
+                alert('בחיבור טיעוני חובה למלא גם את טענת הנגד וההפרכה!');
                 return;
             }
 
@@ -644,7 +640,7 @@
                             <strong>🎯 מבנה חיבור טיעוני:</strong><br>
                             • הקדמה: הצגת הנושא + תזה ברורה<br>
                             • פסקאות גוף: כל פסקה = טיעון אחד + הוכחות<br>
-                            • פסקת טענת הנגד + הפרכה<br>
+                            • טענת נגד והפרכה: "${counterArgument || 'הטענה הנגדית שלך'}"<br>
                             • מסקנה: חיזוק התזה + קריאה לפעולה
                         </div>
                     `;
@@ -654,59 +650,4 @@
                         <div class="success-tip">
                             <strong>🎨 מבנה חיבור תיאור:</strong><br>
                             • הקדמה: יצירת רושם ראשוני + הצגת הנתאר<br>
-                            • פסקאות גוף: כל פסקה = היבט אחד לתיאור<br>
-                            • מסקנה: סיכום הרושם הכללי
-                        </div>
-                    `;
-                    break;
-                case 'formal_letter':
-                    structureTips = `
-                        <div class="success-tip">
-                            <strong>📋 מבנה מכתב רשמי:</strong><br>
-                            • כותרת: פרטי שולח + נמען + תאריך + נושא<br>
-                            • פתיחה: פנייה מנומסת + הצגת המטרה<br>
-                            • גוף: פירוט הנקודות + נימוקים<br>
-                            • סיום: בקשה לפעולה + נימוס
-                        </div>
-                    `;
-                    break;
-                case 'friendly_letter':
-                    structureTips = `
-                        <div class="success-tip">
-                            <strong>💌 מבנה מכתב לחבר:</strong><br>
-                            • פתיחה חמה: שאלות על המצב + שיתוף<br>
-                            • גוף: סיפור חוויות + רגשות<br>
-                            • סיום: תוכניות עתידיות + ביטוי חיבה
-                        </div>
-                    `;
-                    break;
-            }
-
-            let outlineContent = `
-                <h5>📝 מבנה החיבור המומלץ:</h5>
-                <p><strong>הקדמה:</strong> הצגת הנושא "${topic}" והרעיון המרכזי</p>
-                <p><strong>פסקת גוף 1:</strong> ${arguments.split('\n')[0] || 'הטיעון הראשון'}</p>
-                <p><strong>פסקת גוף 2:</strong> ${arguments.split('\n')[1] || 'הטיעון השני'}</p>
-                <p><strong>פסקת גוף 3:</strong> ${arguments.split('\n')[2] || 'הטיעון השלישי'}</p>
-            `;
-
-            if (essayType === 'argumentative' && counterArgument) {
-                outlineContent += `<p><strong>פסקת טענת הנגד:</strong> ${counterArgument.substring(0, 50)}... והפרכתה</p>`;
-            }
-
-            outlineContent += `<p><strong>מסקנה:</strong> סיכום הטיעונים וחיזוק הרעיון המרכזי</p>`;
-
-            feedback.innerHTML = `
-                <div class="feedback">
-                    <h4>🎯 המתווה שלך מוכן!</h4>
-                    ${structureTips}
-                    <div style="background: white; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                        ${outlineContent}
-                    </div>
-                    <p style="margin-top: 15px;">💪 נהדר! עכשיו אתה מוכן לעבור לשלב הכתיבה!</p>
-                </div>
-            `;
-
-            // שמירת הנתונים
-            essayData = { topic, mainIdea, arguments, counterArgument };
-        }
+                            • פ
