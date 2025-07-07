@@ -277,6 +277,7 @@
 
             <div class="steps-nav">
                 <button class="step-btn active" onclick="showStep(1)">1. תכנון <span class="emoji">🎯</span></button>
+                <button class="step-btn" onclick="showStep(1.5)" id="reviewBtn" style="display: none;">1.5. סקירה <span class="emoji">📋</span></button>
                 <button class="step-btn" onclick="showStep(2)">2. כתיבה <span class="emoji">✏️</span></button>
                 <button class="step-btn" onclick="showStep(3)">3. עריכה <span class="emoji">🔍</span></button>
                 <button class="step-btn" onclick="showStep(4)">4. סיום <span class="emoji">🎉</span></button>
@@ -340,6 +341,36 @@
 
                 <div class="tips-specific" id="specificTips" style="display: none;">
                     <!-- הטיפים הספציפיים יתווספו כאן -->
+                </div>
+            </div>
+
+            <!-- שלב 1.5: סקירת התכנון -->
+            <div class="step-content" id="step1.5">
+                <div class="card">
+                    <h3>סקירת התכנון שלך <span class="emoji">📋</span></h3>
+                    
+                    <div id="planReview">
+                        <!-- התוכן יתווסף דינמית -->
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px;">
+                        <button class="btn-primary" onclick="showStep(2)" style="margin-left: 10px;">
+                            מעבר לכתיבה <span class="emoji">✍️</span>
+                        </button>
+                        <button class="btn-primary" onclick="showStep(1)" style="background: #6c757d;">
+                            חזור לתכנון <span class="emoji">🔄</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="tips">
+                    <h4>💡 לפני שאתה מתחיל לכתוב:</h4>
+                    <ul>
+                        <li>בדוק שהמתווה הגיוני וזורם טוב</li>
+                        <li>וודא שיש לך מספיק דוגמאות לכל טיעון</li>
+                        <li>חשוב על מילות המעבר בין הפסקאות</li>
+                        <li>זכור: תמיד אפשר לחזור ולשנות את התכנון!</li>
+                    </ul>
                 </div>
             </div>
 
@@ -468,21 +499,44 @@
 
         function showStep(stepNumber) {
             // הסתר את כל השלבים
-            for (let i = 1; i <= 4; i++) {
-                document.getElementById(`step${i}`).classList.remove('active');
-                document.querySelector(`.step-btn:nth-child(${i})`).classList.remove('active');
-            }
+            const steps = ['step1', 'step1.5', 'step2', 'step3', 'step4'];
+            steps.forEach(step => {
+                const element = document.getElementById(step);
+                if (element) element.classList.remove('active');
+            });
+            
+            // הסתר את כל הכפתורים
+            document.querySelectorAll('.step-btn').forEach(btn => btn.classList.remove('active'));
             
             // הצג את השלב הנבחר
-            document.getElementById(`step${stepNumber}`).classList.add('active');
-            document.querySelector(`.step-btn:nth-child(${stepNumber})`).classList.add('active');
+            const targetStep = document.getElementById(`step${stepNumber}`);
+            if (targetStep) {
+                targetStep.classList.add('active');
+            }
+            
+            // הדלק את הכפתור המתאים
+            if (stepNumber === 1.5) {
+                document.getElementById('reviewBtn').classList.add('active');
+            } else {
+                const btnIndex = stepNumber === 1 ? 1 : stepNumber === 2 ? 3 : stepNumber === 3 ? 4 : 5;
+                const activeBtn = document.querySelector(`.step-btn:nth-child(${btnIndex})`);
+                if (activeBtn) activeBtn.classList.add('active');
+            }
             
             currentStep = stepNumber;
             updateProgressBar();
         }
 
         function updateProgressBar() {
-            const progress = (currentStep / 4) * 100;
+            let progress;
+            switch(currentStep) {
+                case 1: progress = 20; break;
+                case 1.5: progress = 35; break;
+                case 2: progress = 55; break;
+                case 3: progress = 80; break;
+                case 4: progress = 100; break;
+                default: progress = 20;
+            }
             document.getElementById('progressBar').style.width = progress + '%';
         }
 
