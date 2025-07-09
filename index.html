@@ -141,38 +141,82 @@
         });
 
         function selectEssayType(type) {
-            // הסתר את כל הכרטיסיות
-            document.querySelectorAll('.essay-type-card').forEach(card => {
-                card.classList.remove('selected');
-            });
+            try {
+                // הסתר את כל הכרטיסיות
+                document.querySelectorAll('.essay-type-card').forEach(card => {
+                    card.classList.remove('selected');
+                });
 
-            // סמן את הכרטיסייה הנבחרת
-            event.target.closest('.essay-type-card').classList.add('selected');
+                // סמן את הכרטיסייה הנבחרת
+                if (event && event.target) {
+                    const clickedCard = event.target.closest('.essay-type-card');
+                    if (clickedCard) {
+                        clickedCard.classList.add('selected');
+                    }
+                }
 
-            // המתן קצת ואז עבור לדף הרלוונטי
-            setTimeout(() => {
-                currentEssayType = type;
-                showStep(type);
-            }, 300);
+                // המתן קצת ואז עבור לדף הרלוונטי
+                setTimeout(() => {
+                    currentEssayType = type;
+                    showStep(type);
+                }, 300);
+            } catch (error) {
+                console.error('שגיאה בבחירת סוג חיבור:', error);
+            }
         }
 
         function showStep(stepId) {
-            // הסתר את כל השלבים
-            document.querySelectorAll('.step-content').forEach(step => {
-                step.classList.remove('active');
-            });
+            try {
+                // נקה הודעות קודמות
+                clearMessages();
+                
+                // הסתר את כל השלבים
+                document.querySelectorAll('.step-content').forEach(step => {
+                    step.classList.remove('active');
+                });
 
-            // הצג את השלב הנבחר
-            const targetStep = document.getElementById(stepId);
-            if (targetStep) {
-                targetStep.classList.add('active');
+                // הצג את השלב הנבחר
+                const targetStep = document.getElementById(stepId);
+                if (targetStep) {
+                    targetStep.classList.add('active');
+                    
+                    // גלול לראש הדף
+                    window.scrollTo(0, 0);
+                } else {
+                    throw new Error('שלב לא נמצא: ' + stepId);
+                }
+            } catch (error) {
+                console.error('שגיאה בהצגת שלב:', error);
             }
         }
 
         function goBack() {
-            showStep('essayTypeSelection');
-            currentEssayType = '';
-            clearMessages();
+            try {
+                // נקה את כל הנתונים והודעות
+                currentEssayType = '';
+                clearMessages();
+                
+                // נקה את כל השדות
+                document.querySelectorAll('input, textarea').forEach(input => {
+                    input.value = '';
+                    input.classList.remove('spell-error', 'spell-warning', 'spell-success');
+                });
+                
+                // הסר הצעות כתיב
+                document.querySelectorAll('.spelling-suggestions').forEach(suggestion => {
+                    suggestion.remove();
+                });
+                
+                // נקה מתווים
+                document.querySelectorAll('#argOutline, #descOutline, #formalOutline').forEach(outline => {
+                    outline.innerHTML = '';
+                });
+                
+                // חזור לדף הבחירה
+                showStep('essayTypeSelection');
+            } catch (error) {
+                console.error('שגיאה בחזרה:', error);
+            }
         }
 
         // פונקציות בדיקת שגיאות כתיב
@@ -1124,7 +1168,7 @@
         </div>
 
         <div class="main-content">
-            <!-- בחירת סוג חיבור -->
+            <!-- דף שער - בחירת סוג חיבור בלבד -->
             <div class="step-content active" id="essayTypeSelection">
                 <div class="card">
                     <h3>איזה סוג חיבור תרצה לכתוב? 📝</h3>
