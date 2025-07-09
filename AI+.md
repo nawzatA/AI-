@@ -318,7 +318,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="argPosition">מה העמדה שלך? </label>
+                        <label for="argPosition">מה העמדה שלך?</label>
                         <textarea id="argPosition" placeholder="הצג בבירור מה העמדה שלך בנושא..."></textarea>
                     </div>
 
