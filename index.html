@@ -284,20 +284,14 @@
                         
                         <div class="essay-type-card" onclick="selectEssayType('descriptive')">
                             <div class="emoji">🎨</div>
-                            <h4>חיבור תיאור</h4>
-                            <p>תיאור חושי ויצירת אטמוספרה</p>
+                            <h4>כתיבה יצירתית</h4>
+                            <p> תכנון הכתיבה היצירתית שלך</p>
                         </div>
                         
                         <div class="essay-type-card" onclick="selectEssayType('formal_letter')">
                             <div class="emoji">📋</div>
                             <h4>מכתב רשמי</h4>
                             <p>מכתב למוסד או גורם רשמי</p>
-                        </div>
-                        
-                        <div class="essay-type-card" onclick="selectEssayType('friendly_letter')">
-                            <div class="emoji">💌</div>
-                            <h4>מכתב לחבר</h4>
-                            <p>מכתב אישי וחם לחבר או לקרוב</p>
                         </div>
                     </div>
                 </div>
@@ -318,17 +312,17 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="argPosition">מה העמדה שלך?</label>
-                        <textarea id="argPosition" placeholder="הצג בבירור מה העמדה שלך בנושא..."></textarea>
+                        <label for="argPosition">מה הטענה שלך?</label>
+                        <textarea id="arg*-Position" placeholder="הצג בבירור מה הטענה שלך בנושא..."></textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="argArguments">3 טיעונים עיקריים התומכים בעמדה שלך:</label>
+                        <label for="argArguments">3 טיעונים עיקריים התומכים בטענה שלך:</label>
                         <textarea id="argArguments" placeholder="טיעון 1: ...&#10;טיעון 2: ...&#10;טיעון 3: ..."></textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="argCounterArgument">טענת נגד שעלולה להיות מועלית:</label>
+                        <label for="argCounterArgument">טענת הנגד :</label>
                         <textarea id="argCounterArgument" placeholder="יש הטוענים כי..."></textarea>
                     </div>
 
@@ -336,7 +330,10 @@
                         <label for="argRefutation">ההפרכה שלך לטענת הנגד:</label>
                         <textarea id="argRefutation" placeholder="אולם טענה זו שגויה מכיוון ש..."></textarea>
                     </div>
-
+                    <div class="input-group">
+                        <label for="argRefutation">סיכום והמלצה:</label>
+                        <textarea id="argRefutation" placeholder="סכם את טענתך וכתוב המלצה..."></textarea>
+                    </div>
                     <button class="btn-primary" onclick="generateOutline('argumentative')">צור מתווה לחיבור 🚀</button>
                     <div id="argOutline"></div>
                 </div>
@@ -347,13 +344,13 @@
                     <div class="tip-section">
                         <h5>🏗️ מבנה חזק</h5>
                         <ul>
-                            <li>הקדמה: הצג את הנושא ואת העמדה שלך בבירור</li>
-                            <li>כל פסקת גוף: טיעון אחד + הוכחות ודוגמאות</li>
+                            <li>פתיחה: הצג את הנושא ואת העמדה שלך בבירור</li>
+                            <li>גוף החיבור יכלול: 4 עד 6 פסקאות, כל פסקה תכלול דוגמה/הוכחה</li>
                             <li>התייחסות לעמדה נגדית והפרכה שלה</li>
-                            <li>מסקנה: חיזוק העמדה וקריאה לפעולה</li>
+                            <li>מסקנה: סיכום הטענה שלך ומסקנה</li>
                         </ul>
                         <div class="example-box">
-                            <strong>דוגמה לפתיחה:</strong> "אף על פי שיש הטוענים כי רשתות חברתיות מחברות בין אנשים, למעשה הן מרחיקות אותנו זה מזה יותר מתמיד."
+                            <strong>דוגמה לפתיחה:</strong> "בשנים האחרונות חלה עלייה בשימוש בכלי הבינה המלאכותית ליצירת חיבורים."
                         </div>
                     </div>
 
@@ -361,44 +358,44 @@
                         <h5>💪 טיפים מעשיים</h5>
                         <ul>
                             <li>השתמש בדוגמאות קונקרטיות ומקורות אמינים</li>
-                            <li>סדר הטיעונים: מהחלש לחזק ביותר</li>
+                            <li>כל פסקה תתיחס להיבט שונה</li>
                             <li>מילות קישור: "ראשית", "שנית", "יתרה מכך", "לכן"</li>
-                            <li>הצג את טענת הנגד בהוגנות לפני ההפרכה</li>
+                            <li>זכור שאתה צריך להתיחס לטענת הנגד ולהפריך אותה</li>
                         </ul>
                         <div class="example-box">
-                            <strong>דוגמה למעבר:</strong> "בנוסף לכך, חשוב לציין כי..." או "מצד שני, יש לזכור ש..."
+                            <strong> דוגמה למעבר מפסקה לפסקה:</strong> "בנוסף לכך, חשוב לציין כי..." או "מצד שני, יש לזכור ש..."
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- חיבור תיאור -->
+            <!-- כתיבה יצירתית-->
             <div class="step-content" id="descriptive">
-                <div class="progress-indicator">שלב 1: תכנון חיבור תיאור 🎨</div>
+                <div class="progress-indicator">שלב 1: תכנון כתיבה יצירתית  🎨</div>
                 
                 <button class="btn-secondary back-btn" onclick="goBack()">← חזרה לבחירת סוג חיבור</button>
                 
                 <div class="card">
-                    <h3>תכנון החיבור התיאורי שלך 🎨</h3>
+                    <h3>תכנון הכתיבה היצירתית שלך 🎨</h3>
                     
                     <div class="input-group">
-                        <label for="descTopic">מה אתה רוצה לתאר?</label>
-                        <input type="text" id="descTopic" placeholder="למשל: הגן הבוטני בעיר, זכרון ילדות, מקום מיוחד">
+                        <label for="descTopic">רעיון ראשוני- על מה תרצה לכתוב?</label>
+                        <input type="text" id="descTopic" placeholder="למשל: סיפור, זכרון ילדות,דמיון, סיטואציה">
                     </div>
 
                     <div class="input-group">
-                        <label for="descMainImpression">איזה רושם כללי אתה רוצה ליצור?</label>
-                        <textarea id="descMainImpression" placeholder="תאר את האווירה או הרגש שאתה רוצה להעביר..."></textarea>
+                        <label for="descMainImpression">אפיון דמויות ומקום</label>
+                        <textarea id="descMainImpression" placeholder="מיהן הדמויות הראשויות?, הין מתרחש הסיפור?, באיזה תקופה?, איך הדמויות מרגישות"..."></textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="descAspects">3 היבטים עיקריים לתיאור:</label>
-                        <textarea id="descAspects" placeholder="היבט 1: המראה החיצוני...&#10;היבט 2: הקולות והריחות...&#10;היבט 3: התחושות והרגשות..."></textarea>
+                        <label for="descAspects">בניית עלילה:</label>
+                        <textarea id="descAspects" placeholder="פתיחה, בעיה/קונפליקט, שיא,פתרון, סיום..."></textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="descSenses">רשום חוויות חושיות ספציפיות:</label>
-                        <textarea id="descSenses" placeholder="מה רואים, שומעים, מריחים, מרגישים, טועמים..."></textarea>
+                        <label for="descSenses">כתיבה סגנונית:</label>
+                        <textarea id="descSenses" placeholder="שימוש במטאפורות, דימויים, שאלות ריטוריות, כתיב בגוף ראשון/ שלישי, כתיבה חושית: מה שומעים? רואים? מריחים? מרגישים?, שילוב מונולוג פנימי או דיאלוגים..."></textarea>
                     </div>
 
                     <button class="btn-primary" onclick="generateOutline('descriptive')">צור מתווה לחיבור 🚀</button>
@@ -406,32 +403,18 @@
                 </div>
 
                 <div class="tips-box">
-                    <h4>🎨 טיפים לחיבור תיאור מוצלח</h4>
+                    <h4>🎨 טיפים לכתיבה יצירתית מוצלחת</h4>
                     
                     <div class="tip-section">
-                        <h5>🌟 יצירת אטמוספרה</h5>
+                        <h5>🌟</h5>
                         <ul>
-                            <li>השתמש בכל החושים - לא רק ראייה</li>
-                            <li>בנה מהכללי לפרטי או מהפרטי לכללי</li>
-                            <li>צור חוויה חושית שהקורא ירגיש אותה</li>
-                            <li>השתמש בשפה עשירה ומגוונת</li>
+                            <li>לכתוב פתיחה מסקרנת</li>
+                            <li>לבנות עלילה ברורה</li>
+                            <li>להתחיל מרגש חזק</li>
+                            <li>להפעיל את החושים</li>
                         </ul>
-                        <div class="example-box">
-                            <strong>דוגמה חושית:</strong> "הריח החמצמץ של הגשם הראשון התערבב עם ניחוח הפרחים הבשלים, בעוד קולות הציפורים מילאו את האוויר בשיר בוקר עדין."
-                        </div>
+                       
                     </div>
-
-                    <div class="tip-section">
-                        <h5>🎭 כלים ספרותיים</h5>
-                        <ul>
-                            <li>השתמש במטפורות והשוואות יצירתיות</li>
-                            <li>תאר פרטים קטנים שיוצרים רגש</li>
-                            <li>השתמש בצבעים, צורות וטקסטורות</li>
-                            <li>צור קצב וזרימה בכתיבה</li>
-                        </ul>
-                        <div class="example-box">
-                            <strong>דוגמה מטפורית:</strong> "הרוח לחשה סודות בעלי העצים", "השמש ציירה צללים רוקדים על הרצפה"
-                        </div>
                     </div>
                 </div>
             </div>
@@ -447,7 +430,7 @@
                     
                     <div class="input-group">
                         <label for="formalPurpose">מה המטרה של המכתב?</label>
-                        <input type="text" id="formalPurpose" placeholder="למשל: בקשה לדחיית בחינה, תלונה על שירות, בקשה למלגה">
+                        <input type="text" id="formalPurpose" placeholder=" למשל: בקשה לדחיית בחינה, תלונה על שירות, בקשה למלגה, כתיבת המלצה">
                     </div>
 
                     <div class="input-group">
@@ -456,7 +439,7 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="formalMainPoints">3 נקודות עיקריות שברצונך להעביר:</label>
+                        <label for="formalMainPoints"> נקודות עיקריות שברצונך להעביר:</label>
                         <textarea id="formalMainPoints" placeholder="נקודה 1: הבעיה או הבקשה...&#10;נקודה 2: הסיבות והנסיבות...&#10;נקודה 3: מה אתה מבקש לקבל..."></textarea>
                     </div>
 
@@ -489,10 +472,9 @@
                     <div class="tip-section">
                         <h5>💼 שפה וסגנון</h5>
                         <ul>
-                            <li>השתמש בשפה מכובדת ותמציתית</li>
+                            <li>השתמש בשפה רשמית</li>
                             <li>הבהר את המטרה כבר בפסקה הראשונה</li>
                             <li>היה ברור ומדויק בבקשתך</li>
-                            <li>השתמש בביטויים מקובלים ומנומסים</li>
                         </ul>
                         <div class="example-box">
                             <strong>ביטויים מועילים:</strong> "אני פונה אליכם בעניין...", "אודה לקבל מענה בהקדם", "בכבוד רב", "בתודה מראש"
@@ -500,78 +482,6 @@
                     </div>
                 </div>
             </div>
-
-            <!-- מכתב לחבר -->
-            <div class="step-content" id="friendly_letter">
-                <div class="progress-indicator">שלב 1: תכנון מכתב לחבר 💌</div>
-                
-                <button class="btn-secondary back-btn" onclick="goBack()">← חזרה לבחירת סוג חיבור</button>
-                
-                <div class="card">
-                    <h3>תכנון המכתב לחבר שלך 💌</h3>
-                    
-                    <div class="input-group">
-                        <label for="friendlyRecipient">לאיזה חבר אתה כותב?</label>
-                        <input type="text" id="friendlyRecipient" placeholder="שם החבר ואיך אתם מכירים...">
-                    </div>
-
-                    <div class="input-group">
-                        <label for="friendlyPurpose">מה הסיבה לכתיבת המכתב?</label>
-                        <textarea id="friendlyPurpose" placeholder="למשל: לספר על חופשה, להזמין לאירוע, לעדכן על חדשות..."></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="friendlyContent">3 דברים עיקריים שאתה רוצה לספר:</label>
-                        <textarea id="friendlyContent" placeholder="דבר 1: ...&#10;דבר 2: ...&#10;דבר 3: ..."></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="friendlyMemories">זכרונות או חוויות משותפים שאתה רוצה להזכיר:</label>
-                        <textarea id="friendlyMemories" placeholder="תאר זכרונות או חוויות שהיו לכם ביחד..."></textarea>
-                    </div>
-
-                    <div class="input-group">
-                        <label for="friendlyPlans">תוכניות או הצעות לעתיד:</label>
-                        <textarea id="friendlyPlans" placeholder="מה אתה מציע לעשות ביחד, מתי להיפגש..."></textarea>
-                    </div>
-
-                    <button class="btn-primary" onclick="generateOutline('friendly_letter')">צור מתווה למכתב 🚀</button>
-                    <div id="friendlyOutline"></div>
-                </div>
-
-                <div class="tips-box">
-                    <h4>💌 טיפים למכתב חבר מוצלח</h4>
-                    
-                    <div class="tip-section">
-                        <h5>❤️ טון אישי וחם</h5>
-                        <ul>
-                            <li>השתמש בשפה טבעית ורגועה</li>
-                            <li>התחל בשאלה על מצבו של החבר</li>
-                            <li>התייחס לאירועים או זכרונות משותפים</li>
-                            <li>הראה עניין אמיתי בחייו</li>
-                        </ul>
-                        <div class="example-box">
-                            <strong>דוגמה לפתיחה:</strong> "היי רון! איך אתה? מזמן לא שמעתי ממך! אתמול קרה לי משהו מצחיק שחייב לספר לך..."
-                        </div>
-                    </div>
-
-                    <div class="tip-section">
-                        <h5>😊 תוכן מעניין ואישי</h5>
-                        <ul>
-                            <li>שתף חוויות אישיות ורגשות</li>
-                            <li>השתמש בהומור מתאים וקל</li>
-                            <li>תאר אירועים בפירוט ובחיות</li>
-                            <li>סיים בביטוי חיבה או תוכניות להיפגש</li>
-                        </ul>
-                        <div class="example-box">
-                            <strong>סיומים חמים:</strong> "מתגעגע אליך המון!", "מחכה לפגישה הבאה שלנו", "כתוב לי בחזרה מהר!"
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
         let currentEssayType = '';
         let essayData = {};
