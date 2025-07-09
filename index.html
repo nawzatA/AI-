@@ -148,7 +148,7 @@
         }
 
         .textarea-large {
-            min-height: 200px;
+            min-height: 100px;
             resize: vertical;
         }
 
@@ -285,7 +285,7 @@
                         <div class="essay-type-card" onclick="selectEssayType('descriptive')">
                             <div class="emoji">🎨</div>
                             <h4>כתיבה יצירתית</h4>
-                            <p> תכנון הכתיבה היצירתית שלך</p>
+                            <p>תכנון הכתיבה היצירתית שלך</p>
                         </div>
                         
                         <div class="essay-type-card" onclick="selectEssayType('formal_letter')">
@@ -313,28 +313,30 @@
 
                     <div class="input-group">
                         <label for="argPosition">מה הטענה שלך?</label>
-                        <textarea id="arg*-Position" placeholder="הצג בבירור מה הטענה שלך בנושא..."></textarea>
+                        <textarea id="argPosition" class="textarea-large" placeholder="הצג בבירור מה הטענה שלך בנושא..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label for="argArguments">3 טיעונים עיקריים התומכים בטענה שלך:</label>
-                        <textarea id="argArguments" placeholder="טיעון 1: ...&#10;טיעון 2: ...&#10;טיעון 3: ..."></textarea>
+                        <textarea id="argArguments" class="textarea-large" placeholder="טיעון 1: ...&#10;טיעון 2: ...&#10;טיעון 3: ..."></textarea>
                     </div>
 
                     <div class="input-group">
-                        <label for="argCounterArgument">טענת הנגד :</label>
-                        <textarea id="argCounterArgument" placeholder="יש הטוענים כי..."></textarea>
+                        <label for="argCounterArgument">טענת הנגד:</label>
+                        <textarea id="argCounterArgument" class="textarea-large" placeholder="יש הטוענים כי..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label for="argRefutation">ההפרכה שלך לטענת הנגד:</label>
-                        <textarea id="argRefutation" placeholder="אולם טענה זו שגויה מכיוון ש..."></textarea>
+                        <textarea id="argRefutation" class="textarea-large" placeholder="אולם טענה זו שגויה מכיוון ש..."></textarea>
                     </div>
+
                     <div class="input-group">
-                        <label for="argRefutation">סיכום והמלצה:</label>
-                        <textarea id="argRefutation" placeholder="סכם את טענתך וכתוב המלצה..."></textarea>
+                        <label for="argSummary">סיכום והמלצה:</label>
+                        <textarea id="argSummary" class="textarea-large" placeholder="סכם את טענתך וכתוב המלצה..."></textarea>
                     </div>
-                    <button class="btn-primary" onclick="generateOutline('descriptive')">צור מתווה לחיבור 🚀</button>
+
+                    <button class="btn-primary" onclick="generateOutline('argumentative')">צור מתווה לחיבור 🚀</button>
                     <div id="argOutline"></div>
                 </div>
 
@@ -363,15 +365,15 @@
                             <li>זכור שאתה צריך להתיחס לטענת הנגד ולהפריך אותה</li>
                         </ul>
                         <div class="example-box">
-                            <strong> דוגמה למעבר מפסקה לפסקה:</strong> "בנוסף לכך, חשוב לציין כי..." או "מצד שני, יש לזכור ש..."
+                            <strong>דוגמה למעבר מפסקה לפסקה:</strong> "בנוסף לכך, חשוב לציין כי..." או "מצד שני, יש לזכור ש..."
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- כתיבה יצירתית-->
+            <!-- כתיבה יצירתית -->
             <div class="step-content" id="descriptive">
-                <div class="progress-indicator">שלב 1: תכנון כתיבה יצירתית  🎨</div>
+                <div class="progress-indicator">שלב 1: תכנון כתיבה יצירתית 🎨</div>
                 
                 <button class="btn-secondary back-btn" onclick="goBack()">← חזרה לבחירת סוג חיבור</button>
                 
@@ -379,23 +381,23 @@
                     <h3>תכנון הכתיבה היצירתית שלך 🎨</h3>
                     
                     <div class="input-group">
-                        <label for="descTopic">רעיון ראשוני- על מה תרצה לכתוב?</label>
-                        <input type="text" id="descTopic" placeholder="למשל: סיפור, זכרון ילדות,דמיון, סיטואציה">
+                        <label for="descTopic">רעיון ראשוני - על מה תרצה לכתוב?</label>
+                        <input type="text" id="descTopic" placeholder="למשל: סיפור, זכרון ילדות, דמיון, סיטואציה">
                     </div>
 
                     <div class="input-group">
                         <label for="descMainImpression">אפיון דמויות ומקום</label>
-                        <textarea id="descMainImpression" placeholder="מיהן הדמויות הראשויות?, הין מתרחש הסיפור?, באיזה תקופה?, איך הדמויות מרגישות"..."></textarea>
+                        <textarea id="descMainImpression" class="textarea-large" placeholder="מיהן הדמויות הראשיות?, היכן מתרחש הסיפור?, באיזה תקופה?, איך הדמויות מרגישות?"></textarea>
                     </div>
 
                     <div class="input-group">
                         <label for="descAspects">בניית עלילה:</label>
-                        <textarea id="descAspects" placeholder="פתיחה, בעיה/קונפליקט, שיא,פתרון, סיום..."></textarea>
+                        <textarea id="descAspects" class="textarea-large" placeholder="פתיחה, בעיה/קונפליקט, שיא, פתרון, סיום..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label for="descSenses">כתיבה סגנונית:</label>
-                        <textarea id="descSenses" placeholder="שימוש במטאפורות, דימויים, שאלות ריטוריות, כתיב בגוף ראשון/ שלישי, כתיבה חושית: מה שומעים? רואים? מריחים? מרגישים?, שילוב מונולוג פנימי או דיאלוגים..."></textarea>
+                        <textarea id="descSenses" class="textarea-large" placeholder="שימוש במטאפורות, דימויים, שאלות ריטוריות, כתיב בגוף ראשון/שלישי, כתיבה חושית: מה שומעים? רואים? מריחים? מרגישים?, שילוב מונולוג פנימי או דיאלוגים..."></textarea>
                     </div>
 
                     <button class="btn-primary" onclick="generateOutline('descriptive')">צור מתווה לחיבור 🚀</button>
@@ -406,15 +408,13 @@
                     <h4>🎨 טיפים לכתיבה יצירתית מוצלחת</h4>
                     
                     <div class="tip-section">
-                        <h5>🌟</h5>
+                        <h5>🌟 עקרונות בסיסיים</h5>
                         <ul>
                             <li>לכתוב פתיחה מסקרנת</li>
                             <li>לבנות עלילה ברורה</li>
                             <li>להתחיל מרגש חזק</li>
                             <li>להפעיל את החושים</li>
                         </ul>
-                       
-                    </div>
                     </div>
                 </div>
             </div>
@@ -430,7 +430,7 @@
                     
                     <div class="input-group">
                         <label for="formalPurpose">מה המטרה של המכתב?</label>
-                        <input type="text" id="formalPurpose" placeholder=" למשל: בקשה לדחיית בחינה, תלונה על שירות, בקשה למלגה, כתיבת המלצה">
+                        <input type="text" id="formalPurpose" placeholder="למשל: בקשה לדחיית בחינה, תלונה על שירות, בקשה למלגה, כתיבת המלצה">
                     </div>
 
                     <div class="input-group">
@@ -439,13 +439,13 @@
                     </div>
 
                     <div class="input-group">
-                        <label for="formalMainPoints"> נקודות עיקריות שברצונך להעביר:</label>
-                        <textarea id="formalMainPoints" placeholder="נקודה 1: הבעיה או הבקשה...&#10;נקודה 2: הסיבות והנסיבות...&#10;נקודה 3: מה אתה מבקש לקבל..."></textarea>
+                        <label for="formalMainPoints">נקודות עיקריות שברצונך להעביר:</label>
+                        <textarea id="formalMainPoints" class="textarea-large" placeholder="נקודה 1: הבעיה או הבקשה...&#10;נקודה 2: הסיבות והנסיבות...&#10;נקודה 3: מה אתה מבקש לקבל..."></textarea>
                     </div>
 
                     <div class="input-group">
                         <label for="formalDetails">פרטים רלוונטיים (תאריכים, מספרי אסמכתה וכו'):</label>
-                        <textarea id="formalDetails" placeholder="רשום פרטים חשובים שצריך לכלול במכתב..."></textarea>
+                        <textarea id="formalDetails" class="textarea-large" placeholder="רשום פרטים חשובים שצריך לכלול במכתב..."></textarea>
                     </div>
 
                     <button class="btn-primary" onclick="generateOutline('formal_letter')">צור מתווה למכתב 🚀</button>
@@ -482,6 +482,9 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
     <script>
         let currentEssayType = '';
         let essayData = {};
@@ -522,7 +525,6 @@
 
         function generateOutline(type) {
             let outlineHtml = '';
-            let isValid = true;
 
             switch(type) {
                 case 'argumentative':
@@ -531,8 +533,9 @@
                     const argArguments = document.getElementById('argArguments').value;
                     const argCounterArgument = document.getElementById('argCounterArgument').value;
                     const argRefutation = document.getElementById('argRefutation').value;
+                    const argSummary = document.getElementById('argSummary').value;
 
-                    if (!argTopic || !argPosition || !argArguments || !argCounterArgument || !argRefutation) {
+                    if (!argTopic || !argPosition || !argArguments || !argCounterArgument || !argRefutation || !argSummary) {
                         alert('אנא מלא את כל השדות כדי לקבל מתווה מותאם!');
                         return;
                     }
@@ -544,11 +547,12 @@
                             <h4 style="color: #2e7d32; margin-bottom: 15px;">🎯 המתווה שלך מוכן!</h4>
                             <div style="background: white; padding: 20px; border-radius: 8px;">
                                 <h5 style="color: #1565c0; margin-bottom: 15px;">📝 מבנה החיבור הטיעוני:</h5>
-                                <p><strong>🌟 הקדמה:</strong> הצגת הנושא "${argTopic}" והעמדה: "${argPosition}"</p>
-                                ${argsList.map((arg, index) => `<p><strong>📍 פסקת גוף ${index + 1}:</strong> ${arg.trim()}</p>`).join('')}
-                                <p><strong>⚖️ טענת נגד:</strong> ${argCounterArgument}</p>
+                                <p><strong>🌟 פתיחה:</strong> הצגת הנושא "${argTopic}"</p>
+                                <p><strong>🎯 הטענה שלך:</strong> ${argPosition}</p>
+                                ${argsList.map((arg, index) => `<p><strong>📍 טיעון ${index + 1}:</strong> ${arg.trim()}</p>`).join('')}
+                                <p><strong>⚖️ טענת הנגד:</strong> ${argCounterArgument}</p>
                                 <p><strong>💪 הפרכה:</strong> ${argRefutation}</p>
-                                <p><strong>🎯 מסקנה:</strong> חיזוק העמדה וסיכום הטיעונים</p>
+                                <p><strong>🎯 סיכום והמלצה:</strong> ${argSummary}</p>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
                                 <button class="btn-primary" onclick="startWriting('argumentative')">התחל לכתוב את החיבור! ✍️</button>
@@ -575,15 +579,15 @@
                         <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 10px; padding: 20px; margin-top: 15px;">
                             <h4 style="color: #2e7d32; margin-bottom: 15px;">🎨 המתווה שלך מוכן!</h4>
                             <div style="background: white; padding: 20px; border-radius: 8px;">
-                                <h5 style="color: #1565c0; margin-bottom: 15px;">📝 מבנה חיבור התיאור:</h5>
-                                <p><strong>🌟 הקדמה:</strong> יצירת רושם ראשוני של "${descTopic}"</p>
-                                <p><strong>💫 הרושם הכללי:</strong> ${descMainImpression}</p>
-                                ${aspectsList.map((aspect, index) => `<p><strong>🎭 פסקת תיאור ${index + 1}:</strong> ${aspect.trim()}</p>`).join('')}
-                                <p><strong>👁️ חוויות חושיות:</strong> ${descSenses}</p>
-                                <p><strong>🎯 מסקנה:</strong> חזרה לרושם הכללי ועמקת התיאור</p>
+                                <h5 style="color: #1565c0; margin-bottom: 15px;">📝 מבנה הכתיבה היצירתית:</h5>
+                                <p><strong>🌟 הרעיון:</strong> ${descTopic}</p>
+                                <p><strong>👥 דמויות ומקום:</strong> ${descMainImpression}</p>
+                                <p><strong>📖 עלילה:</strong></p>
+                                ${aspectsList.map((aspect, index) => `<p><strong>🎭 שלב ${index + 1}:</strong> ${aspect.trim()}</p>`).join('')}
+                                <p><strong>✨ סגנון כתיבה:</strong> ${descSenses}</p>
                             </div>
                             <div style="margin-top: 15px; text-align: center;">
-                                <button class="btn-primary" onclick="startWriting('descriptive')">התחל לכתוב את החיבור! ✍️</button>
+                                <button class="btn-primary" onclick="startWriting('descriptive')">התחל לכתוב! ✍️</button>
                             </div>
                         </div>
                     `;
@@ -610,7 +614,7 @@
                                 <h5 style="color: #1565c0; margin-bottom: 15px;">📝 מבנה המכתב הרשמי:</h5>
                                 <p><strong>📍 כתובת ותאריך</strong></p>
                                 <p><strong>📮 נמען:</strong> ${formalRecipient}</p>
-                                <p><strong>📋 נושא:</strong> ${formalPurpose}</p>
+                                <p><strong>📋 מטרה:</strong> ${formalPurpose}</p>
                                 <p><strong>🌟 פתיחה מנומסת</strong></p>
                                 ${pointsList.map((point, index) => `<p><strong>📍 נקודה ${index + 1}:</strong> ${point.trim()}</p>`).join('')}
                                 ${formalDetails ? `<p><strong>📄 פרטים נוספים:</strong> ${formalDetails}</p>` : ''}
@@ -623,47 +627,12 @@
                     `;
                     document.getElementById('formalOutline').innerHTML = outlineHtml;
                     break;
-
-                case 'friendly_letter':
-                    const friendlyRecipient = document.getElementById('friendlyRecipient').value;
-                    const friendlyPurpose = document.getElementById('friendlyPurpose').value;
-                    const friendlyContent = document.getElementById('friendlyContent').value;
-                    const friendlyMemories = document.getElementById('friendlyMemories').value;
-                    const friendlyPlans = document.getElementById('friendlyPlans').value;
-
-                    if (!friendlyRecipient || !friendlyPurpose || !friendlyContent) {
-                        alert('אנא מלא את השדות החובה כדי לקבל מתווה מותאם!');
-                        return;
-                    }
-
-                    const contentList = friendlyContent.split('\n').filter(item => item.trim());
-                    
-                    outlineHtml = `
-                        <div style="background: #e8f5e8; border: 2px solid #4caf50; border-radius: 10px; padding: 20px; margin-top: 15px;">
-                            <h4 style="color: #2e7d32; margin-bottom: 15px;">💌 המתווה שלך מוכן!</h4>
-                            <div style="background: white; padding: 20px; border-radius: 8px;">
-                                <h5 style="color: #1565c0; margin-bottom: 15px;">📝 מבנה המכתב לחבר:</h5>
-                                <p><strong>💌 פתיחה חמה:</strong> בירורי שלום ל${friendlyRecipient}</p>
-                                <p><strong>🎯 מטרת המכתב:</strong> ${friendlyPurpose}</p>
-                                ${contentList.map((item, index) => `<p><strong>📍 נושא ${index + 1}:</strong> ${item.trim()}</p>`).join('')}
-                                ${friendlyMemories ? `<p><strong>💭 זכרונות משותפים:</strong> ${friendlyMemories}</p>` : ''}
-                                ${friendlyPlans ? `<p><strong>🚀 תוכניות לעתיד:</strong> ${friendlyPlans}</p>` : ''}
-                                <p><strong>❤️ סיום חם וביטוי געגועים</strong></p>
-                            </div>
-                            <div style="margin-top: 15px; text-align: center;">
-                                <button class="btn-primary" onclick="startWriting('friendly_letter')">התחל לכתוב את המכתב! ✍️</button>
-                            </div>
-                        </div>
-                    `;
-                    document.getElementById('friendlyOutline').innerHTML = outlineHtml;
-                    break;
             }
 
             // שמירת הנתונים
             essayData[type] = {
                 topic: document.getElementById(type === 'argumentative' ? 'argTopic' : 
-                                             type === 'descriptive' ? 'descTopic' : 
-                                             type === 'formal_letter' ? 'formalPurpose' : 'friendlyRecipient').value,
+                                             type === 'descriptive' ? 'descTopic' : 'formalPurpose').value,
                 allData: Array.from(document.querySelectorAll(`#${type} input, #${type} textarea`)).reduce((acc, input) => {
                     if (input.value) acc[input.id] = input.value;
                     return acc;
@@ -672,9 +641,13 @@
         }
 
         function startWriting(type) {
-            alert(`🎉 מעולה! עכשיו אתה מוכן להתחיל לכתוב את ${type === 'argumentative' ? 'החיבור הטיעוני' : 
-                                                                    type === 'descriptive' ? 'חיבור התיאור' :
-                                                                    type === 'formal_letter' ? 'המכתב הרשמי' : 'המכתב לחבר'} שלך!
+            const typeNames = {
+                'argumentative': 'החיבור הטיעוני',
+                'descriptive': 'הכתיבה היצירתית',
+                'formal_letter': 'המכתב הרשמי'
+            };
+            
+            alert(`🎉 מעולה! עכשיו אתה מוכן להתחיל לכתוב את ${typeNames[type]} שלך!
             
 💡 טיפ: שמור את המתווה בצד וכתוב לפיו את החיבור במחברת או במחשב.
             
