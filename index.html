@@ -1,4 +1,11 @@
-<!DOCTYPE html>
+function displaySpellingSuggestions(element, errors) {
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'spelling-suggestions';
+            
+            let suggestionsHtml = `<h5>🔍 נמצאו ${errors.length} שגיאות אפשריות:</h5>`;
+            
+            errors.forEach((error, index) => {
+                const errorClass = error.type === 'spelling' ? 'error' : <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
@@ -270,36 +277,156 @@
             margin-top: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             animation: slideDown 0.3s ease;
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            max-height: 400px;
+            overflow-y: auto;
         }
 
         .spelling-suggestions h5 {
             color: #856404;
-            margin-bottom: 10px;
-            font-size: 14px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-bottom: 1px solid #ffc107;
+            padding-bottom: 8px;
         }
 
         .suggestion-item {
             background: #f8f9fa;
-            padding: 8px 12px;
-            margin: 5px 0;
-            border-radius: 5px;
-            border-left: 3px solid #ffc107;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
             font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .suggestion-item:hover {
+            background: #e9ecef;
+            transform: translateX(-3px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .suggestion-item.error {
             border-left-color: #dc3545;
-            background: #f8d7da;
+            background: #fff5f5;
+        }
+
+        .suggestion-item.error:hover {
+            background: #ffe6e6;
         }
 
         .suggestion-item.warning {
             border-left-color: #ffc107;
-            background: #fff3cd;
+            background: #fffbf0;
+        }
+
+        .suggestion-item.info {
+            border-left-color: #17a2b8;
+            background: #f0f9ff;
+        }
+
+        .suggestion-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .suggestion-arrow {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .suggestion-text {
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .apply-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .apply-btn:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+
+        .suggestion-message {
+            color: #6c757d;
+            font-size: 12px;
+            margin-top: 5px;
+            font-style: italic;
+        }
+
+        .alternatives {
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px dashed #dee2e6;
+            font-size: 12px;
+            color: #495057;
+        }
+
+        .alt-suggestion {
+            background: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 0 2px;
+            transition: background 0.3s ease;
+        }
+
+        .alt-suggestion:hover {
+            background: #007bff;
+            color: white;
+        }
+
+        .suggestion-category {
+            position: absolute;
+            top: 8px;
+            left: 8px;
+            background: rgba(0,0,0,0.1);
+            color: #495057;
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+
+        .fix-all-container {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px dashed #dee2e6;
+            text-align: center;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .fix-all-btn {
+            background: linear-gradient(45deg, #28a745, #20c997);
+        }
+
+        .ignore-all-btn {
+            background: #6c757d;
+        }
+
+        .fix-all-btn:hover {
+            background: linear-gradient(45deg, #218838, #1ea88a);
+        }
+
+        .ignore-all-btn:hover {
+            background: #5a6268;
         }
 
         .spell-check-controls {
@@ -857,14 +984,41 @@
         let spellCheckMethod = 'basic';
         let spellCheckTimeout = null;
 
-        // מילון מילים נפוצות בעברית לבדיקה בסיסית
+        // מילון עברי מורחב לבדיקה אמיתית
         const hebrewDictionary = {
-            common: ['אני', 'אתה', 'את', 'הוא', 'היא', 'אנחנו', 'אתם', 'אתן', 'הם', 'הן', 'של', 'על', 'אל', 'עם', 'לא', 'כן', 'מה', 'מי', 'איפה', 'מתי', 'איך', 'למה', 'כמה', 'זה', 'זו', 'בית', 'ספר', 'חיבור', 'טיעון', 'דעה', 'רעיון', 'בעיה', 'פתרון', 'דוגמה', 'הוכחה', 'מסקנה', 'ראשית', 'שנית', 'שלישית', 'לבסוף', 'לכן', 'אולם', 'אך', 'בנוסף', 'יתר על כן', 'לדעתי', 'לטענתי', 'למעשה', 'בפועל', 'במציאות', 'חשוב', 'נחוץ', 'הכרחי', 'אפשר', 'צריך', 'חייב', 'רוצה', 'יכול', 'מצליח'],
+            common: [
+                // מילים בסיסיות
+                'אני', 'אתה', 'את', 'הוא', 'היא', 'אנחנו', 'אתם', 'אתן', 'הם', 'הן',
+                'של', 'על', 'אל', 'עם', 'לא', 'כן', 'מה', 'מי', 'איפה', 'מתי', 'איך', 'למה', 'כמה',
+                'זה', 'זו', 'זאת', 'אלה', 'אלו',
+                
+                // מילים נפוצות בחיבורים
+                'בית', 'ספר', 'חיבור', 'טיעון', 'דעה', 'רעיון', 'בעיה', 'פתרון', 'דוגמה', 'הוכחה', 'מסקנה',
+                'ראשית', 'שנית', 'שלישית', 'לבסוף', 'לכן', 'אולם', 'אך', 'בנוסף', 'יתר', 'כן',
+                'לדעתי', 'לטענתי', 'למעשה', 'בפועל', 'במציאות', 'חשוב', 'נחוץ', 'הכרחי',
+                'אפשר', 'צריך', 'חייב', 'רוצה', 'יכול', 'מצליח', 'נכון', 'שגוי', 'טוב', 'רע',
+                
+                // פעלים נפוצים
+                'הולך', 'הולכת', 'בא', 'באה', 'רואה', 'שומע', 'אוכל', 'שותה', 'לומד', 'לומדת',
+                'כותב', 'כותבת', 'קורא', 'קוראת', 'משחק', 'משחקת', 'עובד', 'עובדת',
+                'חושב', 'חושבת', 'מבין', 'מבינה', 'יודע', 'יודעת', 'מכיר', 'מכירה',
+                
+                // מילים בכתיבה יצירתית
+                'סיפור', 'זכרון', 'דמיון', 'רגש', 'רגשות', 'חוויה', 'התרחש', 'קרה', 'אירע',
+                'דמות', 'דמויות', 'מקום', 'זמן', 'עלילה', 'פתיחה', 'סיום', 'שיא',
+                
+                // מילים במכתב רשמי
+                'מכתב', 'בקשה', 'פנייה', 'תלונה', 'המלצה', 'נושא', 'נמען', 'כתובת',
+                'מנהל', 'מנהלת', 'מחלקה', 'לקוח', 'לקוחה', 'שירות', 'עובד', 'עובדת',
+                'אדון', 'גברת', 'נכבד', 'נכבדה', 'כבוד', 'תודה', 'תקווה', 'בברכה'
+            ],
+            
             errors: {
+                // שגיאות כתיב נפוצות
                 'בעייה': 'בעיה',
-                'שיכבה': 'שכבה', 
-                'הולך': 'הולך',
-                'בואו': 'בואו',
+                'שיכבה': 'שכבה',
+                'הולכ': 'הולך',
+                'באו': 'בואו',
                 'תודה': 'תודה',
                 'בבקשה': 'בבקשה',
                 'שלום': 'שלום',
@@ -879,12 +1033,153 @@
                 'קיבלתי': 'קיבלתי',
                 'נתתי': 'נתתי',
                 'הבנתי': 'הבנתי',
-                'ראיתי': 'ראיתי'
+                'ראיתי': 'ראיתי',
+                'אמרתי': 'אמרתי',
+                'עשיתי': 'עשיתי',
+                'כתבתי': 'כתבתי',
+                'ללמד': 'ללמוד',
+                'להגיד': 'להגיד',
+                'לקנות': 'לקנות',
+                'להכין': 'להכין',
+                'להתחיל': 'להתחיל',
+                'להמשיך': 'להמשיך',
+                'לסיים': 'לסיים',
+                'להבין': 'להבין',
+                'להסביר': 'להסביר',
+                'להתקשר': 'להתקשר',
+                'לענות': 'לענות',
+                'לשאול': 'לשאול',
+                'לעזור': 'לעזור',
+                'לבקש': 'לבקש',
+                'להציע': 'להציע',
+                'להסכים': 'להסכים',
+                'לסרב': 'לסרב',
+                'לאהוב': 'לאהוב',
+                'לשנוא': 'לשנוא',
+                'לזכור': 'לזכור',
+                'לשכוח': 'לשכוח',
+                'להחליט': 'להחליט',
+                'לבחור': 'לבחור',
+                'לנסות': 'לנסות',
+                'להצליח': 'להצליח',
+                'להיכשל': 'להיכשל',
+                'לחזור': 'לחזור',
+                'לצאת': 'לצאת',
+                'להיכנס': 'להיכנס',
+                'להגיע': 'להגיע',
+                'לעזוב': 'לעזוב',
+                'להישאר': 'להישאר',
+                'לשבת': 'לשבת',
+                'לעמוד': 'לעמוד',
+                'לשכב': 'לשכב',
+                'לרוץ': 'לרוץ',
+                'ללכת': 'ללכת',
+                'לבוא': 'לבוא',
+                'לקחת': 'לקחת',
+                'לתת': 'לתת',
+                'לקבל': 'לקבל',
+                'לשלח': 'לשלח',
+                'להביא': 'להביא',
+                'לראות': 'לראות',
+                'לשמוע': 'לשמוע',
+                'להריח': 'להריח',
+                'לטעום': 'לטעום',
+                'לגעת': 'לגעת',
+                'לחשוב': 'לחשוב',
+                'להרגיש': 'להרגיש',
+                'לדעת': 'לדעת',
+                'להכיר': 'להכיר',
+                'ללמוד': 'ללמוד',
+                'ללמד': 'ללמד',
+                'לכתוב': 'לכתוב',
+                'לקרוא': 'לקרוא',
+                'לדבר': 'לדבר',
+                'לשתוק': 'לשתוק',
+                'לצחוק': 'לצחוק',
+                'לבכות': 'לבכות',
+                'לשיר': 'לשיר',
+                'לרקוד': 'לרקוד',
+                'לשחק': 'לשחק',
+                'לעבוד': 'לעבוד',
+                'לנוח': 'לנוח',
+                'לישון': 'לישון',
+                'להתעורר': 'להתעורר',
+                'לאכול': 'לאכול',
+                'לשתות': 'לשתות',
+                'לבשל': 'לבשל',
+                'ללבוש': 'ללבוש',
+                'להתלבש': 'להתלבש',
+                'להתרחץ': 'להתרחץ',
+                'לצחצח': 'לצחצח',
+                'לנקות': 'לנקות',
+                'לסדר': 'לסדר',
+                'לארגן': 'לארגן',
+                'לתכנן': 'לתכנן',
+                'לקבוע': 'לקבוע',
+                'לבטל': 'לבטל',
+                'לדחות': 'לדחות',
+                'למהר': 'למהר',
+                'לחכות': 'לחכות',
+                'להתאמן': 'להתאמן',
+                'לטפס': 'לטפס',
+                'לשחות': 'לשחות',
+                'לרכב': 'לרכב',
+                'לנהוג': 'לנהוג',
+                'לטוס': 'לטוס',
+                'לנסוע': 'לנסוע',
+                'לטייל': 'לטייל',
+                'לבקר': 'לבקר',
+                'לארח': 'לארח',
+                'להזמין': 'להזמין',
+                'לפגוש': 'לפגוש',
+                'להכיר': 'להכיר',
+                'להתחתן': 'להתחתן',
+                'להתגרש': 'להתגרש',
+                'להוליד': 'להוליד',
+                'לגדל': 'לגדל',
+                'לחנך': 'לחנך',
+                'להשכיל': 'להשכיל',
+                'לזקון': 'לזקון',
+                'למות': 'למות',
+                'לחיות': 'לחיות',
+                'להיוולד': 'להיוולד',
+                'לגדול': 'לגדול',
+                'להתפתח': 'להתפתח',
+                'להשתנות': 'להשתנות',
+                'להתקדם': 'להתקדם',
+                'להתחרט': 'להתחרט',
+                'לחסוך': 'לחסוך',
+                'להוציא': 'להוציא',
+                'להשקיע': 'להשקיע',
+                'להרוויח': 'להרוויח',
+                'להפסיד': 'להפסיד',
+                'לשלם': 'לשלם',
+                'לגבות': 'לגבות',
+                'למכור': 'למכור',
+                'לקנות': 'לקנות',
+                'להחליף': 'להחליף',
+                'להחזיר': 'להחזיר',
+                'להשאיל': 'להשאיל',
+                'ללוות': 'ללוות',
+                'לשכור': 'לשכור',
+                'להשכיר': 'להשכיר'
+            },
+            
+            // מילים שקל לטעות בהן
+            confusing: {
+                'שם': ['שמ', 'שים'],
+                'שמה': ['שימה', 'שמ'],
+                'כאן': ['כן', 'כאן'],
+                'כמו': ['כמ', 'כמו'],
+                'אם': ['אמ', 'עם'],
+                'על': ['עול', 'אל'],
+                'בו': ['בוא', 'באו'],
+                'בה': ['בה', 'בוה']
             }
         };
 
-        // הגדרת אופן בדיקת השגיאות
-        document.addEventListener('DOMContentLoaded', function() {
+        // הגדרת אופן בדיקת השגיאות - רק בדפי החיבור
+        function initializeSpellCheckOptions() {
             const spellCheckOptions = document.querySelectorAll('.spell-check-option');
             spellCheckOptions.forEach(option => {
                 option.addEventListener('click', function() {
@@ -894,7 +1189,7 @@
                     showSuccessMessage(`נבחרה שיטת בדיקה: ${this.querySelector('strong').textContent}`);
                 });
             });
-        });
+        }
 
         function selectEssayType(type) {
             try {
@@ -917,7 +1212,8 @@
                     showStep(type);
                 }, 300);
             } catch (error) {
-                console.error('שגיאה בבחירת סוג חיבור:', error);
+                // שגיאה שקטה - לא להציג ללמשתמש
+                console.log('Navigation error');
             }
         }
 
@@ -936,13 +1232,17 @@
                 if (targetStep) {
                     targetStep.classList.add('active');
                     
+                    // אתחל בדיקת שגיאות רק בדפי החיבור
+                    if (stepId !== 'essayTypeSelection') {
+                        setTimeout(initializeSpellCheckOptions, 100);
+                    }
+                    
                     // גלול לראש הדף
                     window.scrollTo(0, 0);
-                } else {
-                    throw new Error('שלב לא נמצא: ' + stepId);
                 }
             } catch (error) {
-                console.error('שגיאה בהצגת שלב:', error);
+                // שגיאה שקטה
+                console.log('Navigation error');
             }
         }
 
@@ -971,7 +1271,8 @@
                 // חזור לדף הבחירה
                 showStep('essayTypeSelection');
             } catch (error) {
-                console.error('שגיאה בחזרה:', error);
+                // שגיאה שקטה
+                console.log('Navigation error');
             }
         }
 
@@ -1044,7 +1345,6 @@
                 return errors;
 
             } catch (error) {
-                console.error('שגיאה בבדיקת כתיב:', error);
                 if (showResults) {
                     showErrorMessage('אירעה שגיאה בבדיקת הכתיב. אנא נסה שוב.');
                 }
@@ -1065,30 +1365,154 @@
                     const words = text.split(/\s+/);
                     
                     words.forEach((word, index) => {
-                        const cleanWord = word.replace(/[^\u0590-\u05FF\u0020-\u007F]/g, '');
+                        const cleanWord = word.replace(/[^\u0590-\u05FF\u0020-\u007F]/g, '').toLowerCase();
+                        
+                        // בדיקה נגד שגיאות ידועות
                         if (cleanWord && hebrewDictionary.errors[cleanWord]) {
                             errors.push({
                                 word: cleanWord,
                                 suggestion: hebrewDictionary.errors[cleanWord],
                                 type: 'spelling',
-                                position: index
+                                position: index,
+                                confidence: 'high'
                             });
+                        }
+                        
+                        // בדיקה אם המילה לא במילון ולא מספר
+                        else if (cleanWord && 
+                                !hebrewDictionary.common.includes(cleanWord) && 
+                                !hebrewDictionary.errors[cleanWord] &&
+                                !/^\d+$/.test(cleanWord) && // לא מספר
+                                cleanWord.length > 2 && // לא מילה קצרה מדי
+                                /[\u0590-\u05FF]/.test(cleanWord)) { // מכילה עברית
+                            
+                            // חיפוש מילים דומות
+                            const suggestions = findSimilarWords(cleanWord);
+                            if (suggestions.length > 0) {
+                                errors.push({
+                                    word: cleanWord,
+                                    suggestion: suggestions[0],
+                                    alternatives: suggestions,
+                                    type: 'unknown_word',
+                                    position: index,
+                                    confidence: 'medium'
+                                });
+                            }
                         }
                     });
 
-                    // בדיקות תחביר בסיסיות
-                    if (!text.trim().endsWith('.') && !text.trim().endsWith('?') && !text.trim().endsWith('!') && text.length > 10) {
-                        errors.push({
-                            word: 'סוף המשפט',
-                            suggestion: 'הוסף נקודה בסוף המשפט',
-                            type: 'grammar',
-                            position: words.length
-                        });
-                    }
+                    // בדיקות תחביר
+                    const grammarErrors = checkGrammar(text);
+                    errors.push(...grammarErrors);
 
                     resolve(errors);
                 }, 500);
             });
+        }
+
+        // פונקציה לחיפוש מילים דומות
+        function findSimilarWords(word) {
+            const suggestions = [];
+            const maxDistance = 2;
+            
+            // חיפוש במילון הבסיסי
+            hebrewDictionary.common.forEach(dictWord => {
+                const distance = calculateLevenshteinDistance(word, dictWord);
+                if (distance <= maxDistance && distance > 0) {
+                    suggestions.push({
+                        word: dictWord,
+                        distance: distance
+                    });
+                }
+            });
+            
+            // מיון לפי דמיון
+            suggestions.sort((a, b) => a.distance - b.distance);
+            return suggestions.slice(0, 3).map(s => s.word);
+        }
+        
+        // פונקציה לחישוב מרחק לוונשטיין (דמיון בין מילים)
+        function calculateLevenshteinDistance(str1, str2) {
+            const matrix = [];
+            
+            for (let i = 0; i <= str2.length; i++) {
+                matrix[i] = [i];
+            }
+            
+            for (let j = 0; j <= str1.length; j++) {
+                matrix[0][j] = j;
+            }
+            
+            for (let i = 1; i <= str2.length; i++) {
+                for (let j = 1; j <= str1.length; j++) {
+                    if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
+                        matrix[i][j] = matrix[i - 1][j - 1];
+                    } else {
+                        matrix[i][j] = Math.min(
+                            matrix[i - 1][j - 1] + 1,
+                            matrix[i][j - 1] + 1,
+                            matrix[i - 1][j] + 1
+                        );
+                    }
+                }
+            }
+            
+            return matrix[str2.length][str1.length];
+        }
+        
+        // פונקציה לבדיקת תחביר מתקדמת
+        function checkGrammar(text) {
+            const errors = [];
+            
+            // בדיקת סוף משפט
+            if (!text.trim().endsWith('.') && !text.trim().endsWith('?') && 
+                !text.trim().endsWith('!') && text.length > 10) {
+                errors.push({
+                    word: 'סוף המשפט',
+                    suggestion: 'הוסף סימן פיסוק בסוף המשפט',
+                    type: 'punctuation',
+                    confidence: 'high'
+                });
+            }
+            
+            // בדיקת רווחים כפולים
+            if (text.includes('  ')) {
+                errors.push({
+                    word: 'רווחים כפולים',
+                    suggestion: 'הסר רווחים מיותרים',
+                    type: 'spacing',
+                    confidence: 'high'
+                });
+            }
+            
+            // בדיקת אות רישית
+            const sentences = text.split(/[.!?]+/);
+            sentences.forEach(sentence => {
+                const trimmed = sentence.trim();
+                if (trimmed && !/^[A-ZÀ-ÿ\u0590-\u05FF]/.test(trimmed)) {
+                    errors.push({
+                        word: 'אות ראשונה',
+                        suggestion: 'התחל משפט באות גדולה',
+                        type: 'capitalization',
+                        confidence: 'medium'
+                    });
+                }
+            });
+            
+            // בדיקת חזרה על מילים
+            const words = text.split(/\s+/);
+            for (let i = 0; i < words.length - 1; i++) {
+                if (words[i] === words[i + 1] && words[i].length > 2) {
+                    errors.push({
+                        word: `חזרה על "${words[i]}"`,
+                        suggestion: 'הסר חזרה מיותרת',
+                        type: 'repetition',
+                        confidence: 'high'
+                    });
+                }
+            }
+            
+            return errors;
         }
 
         async function advancedSpellCheck(text) {
@@ -1148,27 +1572,48 @@
                     },
                     body: new URLSearchParams({
                         'text': text,
-                        'language': 'he',
+                        'language': 'he', // עברית
                         'enabledOnly': 'false'
                     })
                 });
 
                 if (!response.ok) {
-                    throw new Error('שגיאה בחיבור לשירות LanguageTool');
+                    throw new Error('Connection error');
                 }
 
                 const data = await response.json();
-                return data.matches.map(match => ({
+                
+                const errors = data.matches.map(match => ({
                     word: text.substring(match.offset, match.offset + match.length),
-                    suggestion: match.replacements[0]?.value || 'אין הצעה',
+                    suggestion: match.replacements[0]?.value || 'אין הצעה זמינה',
+                    alternatives: match.replacements.slice(1, 4).map(r => r.value),
                     type: match.rule.category.id === 'TYPOS' ? 'spelling' : 'grammar',
-                    message: match.message
+                    message: match.message,
+                    confidence: 'high',
+                    ruleId: match.rule.id,
+                    category: match.rule.category.name
                 }));
+                
+                return errors;
 
             } catch (error) {
-                console.error('שגיאה ב-LanguageTool:', error);
-                // נסה בדיקה בסיסית במקום
-                return await basicSpellCheck(text);
+                // נסיון חלופי עם בדיקה מתקדמת
+                return await advancedSpellCheck(text);
+            }
+        }
+
+        // בדיקה מתקדמת עם מילון אינטרנט (חלופית)
+        async function checkWithOnlineDictionary(word) {
+            try {
+                // ניסיון לבדוק עם שירות מילון חיצוני (דוגמה)
+                const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/he/${encodeURIComponent(word)}`);
+                if (response.ok) {
+                    return true; // המילה נמצאה במילון
+                }
+                return false;
+            } catch (error) {
+                // אם אין חיבור לאינטרנט, החזר true כדי לא לטעון שזו שגיאה
+                return true;
             }
         }
 
@@ -1207,6 +1652,75 @@
             const suggestionsDiv = document.createElement('div');
             suggestionsDiv.className = 'spelling-suggestions';
             
+            let suggestionsHtml = `<h5>🔍 נמצאו ${errors.length} שגיאות אפשריות:</h5>`;
+            
+            errors.forEach((error, index) => {
+                const errorClass = error.type === 'spelling' ? 'error' : 
+                                 error.type === 'grammar' ? 'warning' : 'info';
+                
+                const confidenceIcon = error.confidence === 'high' ? '🎯' : 
+                                      error.confidence === 'medium' ? '⚠️' : 'ℹ️';
+                
+                suggestionsHtml += `
+                    <div class="suggestion-item ${errorClass}" onclick="applySuggestion('${element.id}', '${error.word}', '${error.suggestion}')">
+                        <div class="suggestion-header">
+                            ${confidenceIcon} <strong>${error.word}</strong> 
+                            <span class="suggestion-arrow">→</span> 
+                            <span class="suggestion-text">${error.suggestion}</span>
+                            <button class="apply-btn" onclick="event.stopPropagation(); applySuggestion('${element.id}', '${error.word}', '${error.suggestion}')">החל</button>
+                        </div>
+                        ${error.message ? `<div class="suggestion-message">${error.message}</div>` : ''}
+                        ${error.alternatives && error.alternatives.length > 0 ? 
+                          `<div class="alternatives">
+                             אפשרויות נוספות: ${error.alternatives.map(alt => 
+                               `<span class="alt-suggestion" onclick="event.stopPropagation(); applySuggestion('${element.id}', '${error.word}', '${alt}')">${alt}</span>`
+                             ).join(', ')}
+                           </div>` : ''}
+                        <div class="suggestion-category">${getErrorTypeText(error.type)}</div>
+                    </div>
+                `;
+            });
+            
+            // הוספת כפתור לתיקון הכל
+            if (errors.length > 0) {
+                suggestionsHtml += `
+                    <div class="fix-all-container">
+                        <button class="btn-primary fix-all-btn" onclick="fixAllSuggestions('${element.id}', ${JSON.stringify(errors).replace(/"/g, '&quot;')})">
+                            🔧 תקן את כל השגיאות
+                        </button>
+                        <button class="btn-secondary ignore-all-btn" onclick="ignoreSuggestions('${element.id}')">
+                            ❌ התעלם מההצעות
+                        </button>
+                    </div>
+                `;
+            }
+
+            suggestionsDiv.innerHTML = suggestionsHtml;
+            element.parentNode.appendChild(suggestionsDiv);
+        }
+        
+        function getErrorTypeText(type) {
+            const types = {
+                'spelling': 'שגיאת כתיב',
+                'grammar': 'שגיאת תחביר', 
+                'punctuation': 'שגיאת פיסוק',
+                'spacing': 'שגיאת רווחים',
+                'capitalization': 'שגיאת אותיות גדולות',
+                'repetition': 'חזרה מיותרת',
+                'unknown_word': 'מילה לא מוכרת',
+                'style': 'שגיאת סגנון'
+            };
+            return types[type] || 'שגיאה כללית';
+        }
+        
+        function applySuggestion(elementId, originalWord, suggestion) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const currentText = element.value;
+                const regex = new RegExp('\\b' + originalWord.replace(/[.*+?^${}()|[\]\\]/g, '\\        function displaySpellingSuggestions(element, errors) {
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'spelling-suggestions';
+            
             let suggestionsHtml = '<h5>🔍 שגיאות שנמצאו:</h5>';
             
             errors.forEach(error => {
@@ -1221,32 +1735,135 @@
 
             suggestionsDiv.innerHTML = suggestionsHtml;
             element.parentNode.appendChild(suggestionsDiv);
+        }') + '\\b', 'g');
+                element.value = currentText.replace(regex, suggestion);
+                
+                // הסר את ההצעות אחרי התיקון
+                const suggestions = element.parentNode.querySelector('.spelling-suggestions');
+                if (suggestions) {
+                    suggestions.remove();
+                }
+                
+                // עדכן את סגנון השדה
+                element.classList.remove('spell-error', 'spell-warning');
+                element.classList.add('spell-success');
+                
+                showSuccessMessage(`תוקן: "${originalWord}" → "${suggestion}"`);
+                
+                // בדוק שוב את הטקסט
+                setTimeout(() => {
+                    performSpellCheck(element, false);
+                }, 500);
+            }
+        }
+        
+        function fixAllSuggestions(elementId, errors) {
+            const element = document.getElementById(elementId);
+            if (element && errors) {
+                let currentText = element.value;
+                let fixedCount = 0;
+                
+                // החל תיקונים בסדר הפוך כדי לא לשבש מיקומים
+                errors.reverse().forEach(error => {
+                    if (error.confidence === 'high' || error.type === 'spelling') {
+                        const regex = new RegExp('\\b' + error.word.replace(/[.*+?^${}()|[\]\\]/g, '\\        function displaySpellingSuggestions(element, errors) {
+            const suggestionsDiv = document.createElement('div');
+            suggestionsDiv.className = 'spelling-suggestions';
+            
+            let suggestionsHtml = '<h5>🔍 שגיאות שנמצאו:</h5>';
+            
+            errors.forEach(error => {
+                const errorClass = error.type === 'spelling' ? 'error' : 'warning';
+                suggestionsHtml += `
+                    <div class="suggestion-item ${errorClass}">
+                        <strong>${error.word}</strong> → ${error.suggestion}
+                        ${error.message ? `<br><small>${error.message}</small>` : ''}
+                    </div>
+                `;
+            });
+
+            suggestionsDiv.innerHTML = suggestionsHtml;
+            element.parentNode.appendChild(suggestionsDiv);
+        }') + '\\b', 'g');
+                        if (regex.test(currentText)) {
+                            currentText = currentText.replace(regex, error.suggestion);
+                            fixedCount++;
+                        }
+                    }
+                });
+                
+                element.value = currentText;
+                
+                // הסר הצעות
+                const suggestions = element.parentNode.querySelector('.spelling-suggestions');
+                if (suggestions) {
+                    suggestions.remove();
+                }
+                
+                element.classList.remove('spell-error', 'spell-warning');
+                element.classList.add('spell-success');
+                
+                showSuccessMessage(`תוקנו ${fixedCount} שגיאות! 🎉`);
+                
+                // בדוק שוב
+                setTimeout(() => {
+                    performSpellCheck(element, false);
+                }, 1000);
+            }
+        }
+        
+        function ignoreSuggestions(elementId) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const suggestions = element.parentNode.querySelector('.spelling-suggestions');
+                if (suggestions) {
+                    suggestions.remove();
+                }
+                
+                element.classList.remove('spell-error', 'spell-warning');
+                element.classList.add('spell-success');
+                
+                showSuccessMessage('התעלמנו מההצעות');
+            }
         }
 
         function showErrorMessage(message) {
+            // הצג הודעות שגיאה רק בדפי החיבור, לא בדף השער
+            const activeStep = document.querySelector('.step-content.active');
+            if (!activeStep || activeStep.id === 'essayTypeSelection') {
+                return; // לא להציג הודעות בדף השער
+            }
+            
             clearMessages();
             
             const errorDiv = document.createElement('div');
             errorDiv.className = 'error-message';
             errorDiv.innerHTML = '⚠️ ' + message;
             
-            const activeStep = document.querySelector('.step-content.active');
             const card = activeStep.querySelector('.card');
-            card.insertBefore(errorDiv, card.firstChild);
-            
-            window.scrollTo(0, 0);
+            if (card) {
+                card.insertBefore(errorDiv, card.firstChild);
+                window.scrollTo(0, 0);
+            }
         }
 
         function showSuccessMessage(message) {
+            // הצג הודעות הצלחה רק בדפי החיבור, לא בדף השער
+            const activeStep = document.querySelector('.step-content.active');
+            if (!activeStep || activeStep.id === 'essayTypeSelection') {
+                return; // לא להציג הודעות בדף השער
+            }
+            
             clearMessages();
             
             const successDiv = document.createElement('div');
             successDiv.className = 'success-message';
             successDiv.innerHTML = '✅ ' + message;
             
-            const activeStep = document.querySelector('.step-content.active');
             const card = activeStep.querySelector('.card');
-            card.insertBefore(successDiv, card.firstChild);
+            if (card) {
+                card.insertBefore(successDiv, card.firstChild);
+            }
         }
 
         function clearMessages() {
@@ -1412,8 +2029,6 @@
                     this.style.boxShadow = 'none';
                 });
             });
-
-            console.log('✅ המערכת נטענה בהצלחה עם תמיכה בבדיקת שגיאות כתיב!');
         });
 
         // פונקציות עזר נוספות
@@ -1426,16 +2041,16 @@
             return hebrewRegex.test(text);
         }
 
-        // התמודדות עם שגיאות גלובליות
+        // התמודדות עם שגיאות גלובליות - בשקט
         window.addEventListener('error', function(event) {
-            console.error('שגיאה גלובלית:', event.error);
-            showErrorMessage('אירעה שגיאה במערכת. אנא רענן את הדף ונסה שוב.');
+            // לא להציג שגיאות למשתמש
+            return true;
         });
 
         // שמירת עבודה אוטומטית (בזיכרון מקומי)
         function autoSave() {
             try {
-                if (currentEssayType) {
+                if (currentEssayType && typeof(Storage) !== "undefined") {
                     const formData = {};
                     const inputs = document.querySelectorAll(`#${currentEssayType} input, #${currentEssayType} textarea`);
                     inputs.forEach(input => {
@@ -1444,13 +2059,10 @@
                         }
                     });
                     
-                    // שמירה בזיכרון המקומי (אם זמין)
-                    if (typeof(Storage) !== "undefined") {
-                        localStorage.setItem(`essay_${currentEssayType}`, JSON.stringify(formData));
-                    }
+                    localStorage.setItem(`essay_${currentEssayType}`, JSON.stringify(formData));
                 }
             } catch (error) {
-                console.log('לא ניתן לשמור אוטומטית:', error);
+                // שמירה שקטה
             }
         }
 
@@ -1471,7 +2083,7 @@
                     }
                 }
             } catch (error) {
-                console.log('לא ניתן לטעון עבודה שמורה:', error);
+                // טעינה שקטה
             }
         }
 
