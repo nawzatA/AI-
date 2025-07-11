@@ -611,11 +611,20 @@
             
             document.querySelectorAll('input, textarea').forEach(input => {
                 input.value = '';
+                // איפוס סגנון השדות
+                input.style.borderColor = '';
+                input.style.backgroundColor = '';
             });
             
             document.querySelectorAll('#argOutline, #descOutline, #formalOutline').forEach(outline => {
                 outline.innerHTML = '';
             });
+            
+            // הסר רשימת שגיאות
+            const existingErrorDetails = document.getElementById('errorDetails');
+            if (existingErrorDetails) {
+                existingErrorDetails.remove();
+            }
             
             document.getElementById('homepage').classList.add('active');
             window.scrollTo(0, 0);
@@ -853,18 +862,57 @@
                 }
             });
 
+            // הסר הודעות שגיאות קודמות
+            const existingErrorDetails = document.getElementById('errorDetails');
+            if (existingErrorDetails) {
+                existingErrorDetails.remove();
+            }
+
             if (totalErrors > 0) {
-                let errorMessage = 'נמצאו ' + totalErrors + ' שגיאות כתיב:\n\n';
-                errorDetails.forEach(field => {
-                    errorMessage += '• ' + field.field + ':\n';
-                    field.errors.forEach(error => {
-                        errorMessage += '  - ' + error.word + ' → ' + error.suggestion + '\n';
-                    });
-                    errorMessage += '\n';
-                });
-                errorMessage += 'אנא תקן את השגיאות לפני יצירת המתווה.';
-                
                 showMessage('נמצאו ' + totalErrors + ' שגיאות כתיב! בדוק את השדות המסומנים באדום ותקן את השגיאות.', 'error');
+                
+                // צור רשימה מפורטת של שגיאות
+                const errorDetailsDiv = document.createElement('div');
+                errorDetailsDiv.id = 'errorDetails';
+                errorDetailsDiv.style.cssText = `
+                    background: #fff3cd;
+                    border: 2px solid #ffc107;
+                    border-radius: 10px;
+                    padding: 20px;
+                    margin: 20px 0;
+                    max-height: 300px;
+                    overflow-y: auto;
+                `;
+                
+                let errorHtml = '<h4 style="color: #856404; margin-bottom: 15px; text-align: center;">📝 שגיאות שנמצאו:</h4>';
+                
+                errorDetails.forEach(field => {
+                    errorHtml += '<div style="margin-bottom: 15px; padding: 10px; background: white; border-radius: 5px;">';
+                    errorHtml += '<h5 style="color: #721c24; margin-bottom: 10px;">📍 ' + field.field + '</h5>';
+                    
+                    field.errors.forEach(error => {
+                        errorHtml += '<div style="display: flex; align-items: center; margin-bottom: 8px; padding: 8px; background: #f8f9fa; border-radius: 5px;">';
+                        errorHtml += '<span style="color: #dc3545; font-weight: bold; margin-left: 10px;">❌ ' + error.word + '</span>';
+                        errorHtml += '<span style="color: #6c757d; margin: 0 10px;">→</span>';
+                        errorHtml += '<span style="color: #28a745; font-weight: bold; margin-right: 10px;">✅ ' + error.suggestion + '</span>';
+                        errorHtml += '</div>';
+                    });
+                    
+                    errorHtml += '</div>';
+                });
+                
+                errorHtml += '<div style="text-align: center; margin-top: 15px; padding-top: 15px; border-top: 1px solid #ffc107;">';
+                errorHtml += '<small style="color: #856404;">💡 תקן את השגיאות המסומנות כדי ליצור את המתווה</small>';
+                errorHtml += '</div>';
+
+                errorDetailsDiv.innerHTML = errorHtml;
+                
+                // הוסף את רשימת השגיאות אחרי הכפתורים
+                const activeCard = document.querySelector('.step-content.active .card');
+                if (activeCard) {
+                    activeCard.appendChild(errorDetailsDiv);
+                }
+                
             } else {
                 showMessage('מצוין! לא נמצאו שגיאות כתיב. כעת תוכל ליצור את המתווה.', 'success');
             }
