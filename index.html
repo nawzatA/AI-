@@ -438,6 +438,7 @@
                     </div>
 
                     <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn-primary" onclick="checkSpellingBeforeOutline('argumentative')" style="background: #17a2b8; margin-left: 10px;">🔍 בדוק שגיאות כתיב</button>
                         <button class="btn-primary" onclick="generateOutline('argumentative')">צור מתווה לחיבור 🚀</button>
                     </div>
                     <div id="argOutline"></div>
@@ -504,6 +505,7 @@
                     </div>
 
                     <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn-primary" onclick="checkSpellingBeforeOutline('descriptive')" style="background: #17a2b8; margin-left: 10px;">🔍 בדוק שגיאות כתיב</button>
                         <button class="btn-primary" onclick="generateOutline('descriptive')">צור מתווה לחיבור 🚀</button>
                     </div>
                     <div id="descOutline"></div>
@@ -556,6 +558,7 @@
                     </div>
 
                     <div style="text-align: center; margin: 30px 0;">
+                        <button class="btn-primary" onclick="checkSpellingBeforeOutline('formal_letter')" style="background: #17a2b8; margin-left: 10px;">🔍 בדוק שגיאות כתיב</button>
                         <button class="btn-primary" onclick="generateOutline('formal_letter')">צור מתווה למכתב 🚀</button>
                     </div>
                     <div id="formalOutline"></div>
@@ -619,6 +622,12 @@
         }
 
         function generateOutline(type) {
+            // בדיקת שגיאות כתיב לפני יצירת המתווה
+            if (!checkAllInputsForSpelling(type)) {
+                showMessage('נמצאו שגיאות כתיב בטקסט! אנא תקן את השגיאות לפני יצירת המתווה.', 'error');
+                return;
+            }
+
             let outlineHtml = '';
 
             switch(type) {
@@ -734,6 +743,131 @@
             }
 
             showMessage('המתווה נוצר בהצלחה! 🎉', 'success');
+        }
+
+        // פונקציה לבדיקת שגיאות כתיב בכל השדות
+        function checkAllInputsForSpelling(sectionType) {
+            const section = document.getElementById(sectionType);
+            const inputs = section.querySelectorAll('input, textarea');
+            let hasErrors = false;
+
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    const errors = checkSpellingInText(input.value);
+                    if (errors.length > 0) {
+                        hasErrors = true;
+                        // סמן את השדה עם שגיאה
+                        input.style.borderColor = '#dc3545';
+                        input.style.backgroundColor = '#fff5f5';
+                    } else {
+                        // השדה תקין
+                        input.style.borderColor = '#28a745';
+                        input.style.backgroundColor = '#f0fff4';
+                    }
+                }
+            });
+
+            return !hasErrors;
+        }
+
+        // פונקציה לבדיקת שגיאות כתיב בטקסט
+        function checkSpellingInText(text) {
+            const errors = [];
+            const commonErrors = {
+                'בעייה': 'בעיה',
+                'שיכבה': 'שכבה', 
+                'הולכ': 'הולך',
+                'באו': 'בואו',
+                'תודה': 'תודה',
+                'בבקשה': 'בבקשה',
+                'שלום': 'שלום',
+                'יש לי': 'יש לי',
+                'הייתי': 'הייתי',
+                'אהיה': 'אהיה',
+                'שווה': 'שווה',
+                'כדאי': 'כדאי',
+                'בטוח': 'בטוח',
+                'קיבלתי': 'קיבלתי',
+                'נתתי': 'נתתי',
+                'הבנתי': 'הבנתי',
+                'ראיתי': 'ראיתי',
+                'אמרתי': 'אמרתי',
+                'עשיתי': 'עשיתי',
+                'כתבתי': 'כתבתי'
+            };
+
+            // בדיקת שגיאות נפוצות
+            Object.keys(commonErrors).forEach(wrongWord => {
+                if (text.includes(wrongWord)) {
+                    errors.push({
+                        word: wrongWord,
+                        suggestion: commonErrors[wrongWord]
+                    });
+                }
+            });
+
+            // בדיקת חזרה על מילים
+            const words = text.split(/\s+/);
+            for (let i = 0; i < words.length - 1; i++) {
+                if (words[i] === words[i + 1] && words[i].length > 2) {
+                    errors.push({
+                        word: 'חזרה על "' + words[i] + '"',
+                        suggestion: 'הסר חזרה מיותרת'
+                    });
+                }
+            }
+
+            // בדיקת סימני פיסוק
+            if (text.length > 20 && !text.trim().match(/[.!?]$/)) {
+                errors.push({
+                    word: 'חסר סימן פיסוק',
+                    suggestion: 'הוסף נקודה בסוף המשפט'
+                });
+            }
+
+            return errors;
+        }
+
+        // פונקציה לבדיקת כתיב ידנית
+        function checkSpellingBeforeOutline(sectionType) {
+            const section = document.getElementById(sectionType);
+            const inputs = section.querySelectorAll('input, textarea');
+            let totalErrors = 0;
+            let errorDetails = [];
+
+            inputs.forEach(input => {
+                if (input.value.trim()) {
+                    const errors = checkSpellingInText(input.value);
+                    if (errors.length > 0) {
+                        totalErrors += errors.length;
+                        input.style.borderColor = '#dc3545';
+                        input.style.backgroundColor = '#fff5f5';
+                        errorDetails.push({
+                            field: input.previousElementSibling.textContent,
+                            errors: errors
+                        });
+                    } else {
+                        input.style.borderColor = '#28a745';
+                        input.style.backgroundColor = '#f0fff4';
+                    }
+                }
+            });
+
+            if (totalErrors > 0) {
+                let errorMessage = 'נמצאו ' + totalErrors + ' שגיאות כתיב:\n\n';
+                errorDetails.forEach(field => {
+                    errorMessage += '• ' + field.field + ':\n';
+                    field.errors.forEach(error => {
+                        errorMessage += '  - ' + error.word + ' → ' + error.suggestion + '\n';
+                    });
+                    errorMessage += '\n';
+                });
+                errorMessage += 'אנא תקן את השגיאות לפני יצירת המתווה.';
+                
+                showMessage('נמצאו ' + totalErrors + ' שגיאות כתיב! בדוק את השדות המסומנים באדום ותקן את השגיאות.', 'error');
+            } else {
+                showMessage('מצוין! לא נמצאו שגיאות כתיב. כעת תוכל ליצור את המתווה.', 'success');
+            }
         }
 
         function startWriting(type) {
